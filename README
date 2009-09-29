@@ -3,6 +3,15 @@ Bigwig
 
 Bigwig is a daemon process that listens to a RabbitMQ queue and processes messages that it receives.  
 
+Typical Usage
+-------------
+
+* Install the bigwig gem
+* Start an AMQP server
+* Create a folder of plugins
+* Create a bigwig configuration file
+* Start bigwig - `bigwig start -c config -l logs`
+
 Configuration
 -------------
 
@@ -26,7 +35,7 @@ The first six items tell bigwig how to connect to the AMQP server.  The next ite
 Logging
 -------
 
-When invoking bigwig you should pass it the full path to a folder in which to write its log and pid files.  If not specified, it will use the current folder.  
+When invoking bigwig you should pass it the full path to a folder in which to write its log and pid files.  If not specified, it will use the current folder.  This is done using the -l command line option.  
 
 Messages
 --------
