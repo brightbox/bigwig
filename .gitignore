@@ -1,0 +1,6 @@
+bigwig.yml
+bigwig.output
+bigwig.pid
+tmp/*
+log/*
+.DS_Store

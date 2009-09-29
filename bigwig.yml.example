@@ -1,0 +1,8 @@
+user: rabbit-user
+password: crunchycarrots
+vhost: /
+server: my.amqpserver.com
+port: 5672
+queue: myqueue
+warren_logging: false
+plugins_folder: /full/path/to/a/folder
