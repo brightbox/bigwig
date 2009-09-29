@@ -4,3 +4,4 @@ bigwig.pid
 tmp/*
 log/*
 .DS_Store
+pkg

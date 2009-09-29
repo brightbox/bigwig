@@ -1,0 +1,15 @@
+CHANGELOG
+LICENSE
+README
+Rakefile
+bigwig.output
+bigwig.yml
+bigwig.yml.example
+bin/bigwig
+lib/bigwig.rb
+lib/bigwig/internal_plugins/ping_plugin.rb
+lib/bigwig/job.rb
+lib/bigwig/plugin.rb
+lib/bigwig/plugins.rb
+lib/bigwig/runner.rb
+Manifest
