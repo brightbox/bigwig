@@ -25,14 +25,14 @@ module BigWig
           BigWig::logger.info("Starting Bigwig job worker")
 
           trap_signals
-          connect_to_warren
-          break if $exit 
+          BigWig::connect_using config
 
           last_successful_subscription = Time.now
           last_connection_failed = false
           loop do
             message_received = false
-            
+            break if $exit 
+
             begin
               Warren::Queue.subscribe(:default) do |msg|
                 BigWig::Job.dispatch(msg)
@@ -97,17 +97,6 @@ module BigWig
         BigWig::logger.info('Bigwig exiting due to INT signal')
         $exit = true
       end
-    end
-    
-    def connect_to_warren
-      env = ENV['WARREN_ENV'] || 'development'
-      
-      h = {:user => config["user"], :pass => config["password"], :vhost => config["vhost"], :default_queue => config["queue"], :host => config["server"], :logging => config["warren_logging"]}
-
-      params = { env => h }
-      
-      Warren::Queue.logger = BigWig::logger
-      Warren::Queue.connection = params
     end
     
     def calculate_retry_time_based_upon last_connection_time

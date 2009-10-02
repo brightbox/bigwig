@@ -16,6 +16,17 @@ module BigWig
   def self.logger=(l)
     @logger = l
   end
+  
+  def self.connect_using config
+    env = ENV['WARREN_ENV'] || 'development'
+    
+    h = {:user => config["user"], :pass => config["password"], :vhost => config["vhost"], :default_queue => config["queue"], :host => config["server"], :logging => config["warren_logging"]}
+  
+    params = { env => h }
+    
+    Warren::Queue.logger = BigWig::logger
+    Warren::Queue.connection = params
+  end
 end
 
 Dir["#{BIGWIG_ROOT}/lib/bigwig/*.rb"].each {|r| require r }
