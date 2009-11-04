@@ -79,6 +79,8 @@ For example, a plugin, which we shall call LoggingPlugin, would look like this:
 
 When bigwig receives a message where the `:method` parameter == 'logging' it will then invoke `LoggingPlugin#call`, passing it the `:id` and `:data` from the original message as task_id and args respectively.  
 
+If your plugin needs to know where it is on the filesystem (for example, so that it can shell out to run a script) it can access `BigWig::Plugins.root` which returns the folder reference you specified within the configuration file.  
+
 Pings
 -----
 
