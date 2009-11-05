@@ -1,7 +1,7 @@
 Bigwig
 ======
 
-Bigwig is a daemon process that listens to a RabbitMQ queue and processes messages that it receives.  
+Bigwig is a daemon process that listens to a RabbitMQ queue and processes messages that it receives, along with some simple command-line tools to place messages on the queue.   
 
 Typical Usage
 -------------
@@ -85,6 +85,23 @@ Pings
 -----
 
 There is a plugin built-in to bigwig called PingPlugin, that registers itself under the name "ping".  If you place a message onto the queue with :method => 'ping', the PingPlugin responds by writing a message to the log file.  This is useful for monitoring bigwig - another system places ping messages onto the queue at regular intervals and we watch to ensure that the log file's update time is changing.  
+
+Command-line Interface
+----------------------
+
+There are two command-line scripts that push messages on to the queue.  
+
+The simplest is `bigwig-ping`.  
+
+This pushes a ping message onto the queue - ideal for calling from a cron job.  This takes two parameters: `-t` (or `--timeout`) which is the connection timeout in seconds (defaulting to 5 if not supplied) and `-c` (or `--config`) which is the path to a Bigwig configuration file (defaulting to bigwig.yml in the current directory if not supplied).  
+
+        bigwig-ping -c /path/to/config -t 10
+
+There is also `bigwig-push`.  
+
+This pushes an arbitrary message onto the queue - ideal for testing, or just manually poking Bigwig to make something happen.  It takes the same `--config` and `--timeout` parameters as bigwig-ping, plus a few more for specifying the message itself.  These are `-m` (or `--method`) which is the method name (for selecting which plugin responds), `-i` (or `--id`) which is the optional task id (useful when linking to an external system) and `-d` (or `--data`) for a hash of values that becomes the `:data` parameter.  
+
+        bigwig-push -m my_message -d '{:key => "value", :key2 => "something else"} -i 123 -c /path/to/config -t 10
 
 License
 -------

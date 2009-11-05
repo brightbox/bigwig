@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require File.join(File.dirname(__FILE__), "..", "lib", "bigwig")
+require 'optparse'
+
+options = BigWig::Push.load_options_from ARGV do | parser, options | 
+  
+  parser.on '-m', '--method METHOD', 'Specify the method name' do | value | 
+    options[:method] = value
+  end
+  
+  parser.on '-i', '--id TASK_ID', 'Specify the task id' do | value | 
+    options[:id] = value
+  end
+  
+  parser.on '-d', '--data HASH', 'Specify the message data as a Hash "{:key => \'value\', :key2 => \'other_value\'}"' do | value | 
+    options[:data] = eval(value)
+  end
+  
+  parser.on '-q', '--queue QUEUE_NAME', 'Specify which queue to put the message onto' do | value | 
+    options[:queue] = value
+  end
+end
+
+BigWig::Push.new(options).message options[:method], options[:data] || {}, options[:id], options[:queue] || :default
