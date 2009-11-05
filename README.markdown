@@ -10,7 +10,9 @@ Typical Usage
 * Start an AMQP server
 * Create a folder of plugins
 * Create a bigwig configuration file
-* Start bigwig - `bigwig start -c config -l logs`
+* Start bigwig - `bigwig start -c config-file -l log-folder`
+* Ping bigwig - `bigwig-ping -c config-file`
+* Push a message with data onto the queue - `bigwig-push -m my_message -d '{:key => "value"}' -c config-file`
 
 Configuration
 -------------
@@ -30,7 +32,7 @@ A typical configuration file looks like this:
         warren_logging: false
         plugins_folder: /full/path/to/a/folder
 
-The first six items tell bigwig how to connect to the AMQP server.  The next item specifies whether you want warren (the lower-level AMQP processor) to log its output.  Lastly, you tell bigwig where to find its plugins.  
+The first six items tell bigwig how to connect to the AMQP server.  The next item specifies whether you want warren (the lower-level AMQP processor) to log its output (normally you will want this to be false, as warren can be quite noisy).  Lastly, you tell bigwig where to find its plugins.  
 
 Logging
 -------
@@ -101,7 +103,7 @@ There is also `bigwig-push`.
 
 This pushes an arbitrary message onto the queue - ideal for testing, or just manually poking Bigwig to make something happen.  It takes the same `--config` and `--timeout` parameters as bigwig-ping, plus a few more for specifying the message itself.  These are `-m` (or `--method`) which is the method name (for selecting which plugin responds), `-i` (or `--id`) which is the optional task id (useful when linking to an external system) and `-d` (or `--data`) for a hash of values that becomes the `:data` parameter.  
 
-        bigwig-push -m my_message -d '{:key => "value", :key2 => "something else"} -i 123 -c /path/to/config -t 10
+        bigwig-push -m my_message -d '{:key => "value", :key2 => "something else"}' -i 123 -c /path/to/config -t 10
 
 License
 -------
