@@ -88,6 +88,16 @@ Pings
 
 There is a plugin built-in to bigwig called PingPlugin, that registers itself under the name "ping".  If you place a message onto the queue with :method => 'ping', the PingPlugin responds by writing a message to the log file.  This is useful for monitoring bigwig - another system places ping messages onto the queue at regular intervals and we watch to ensure that the log file's update time is changing.  
 
+Init Scripts
+------------
+
+Sometimes you need to do something on starting bigwig. Most common is setting up warren filters. Just add 
+
+    init_folder: /path/to/init/folder
+
+to your `config.yml` and bigwig will load any `rb` files that folder contains.
+
+
 Command-line Interface
 ----------------------
 

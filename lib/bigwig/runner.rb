@@ -21,6 +21,7 @@ module BigWig
       Daemons.run_proc('bigwig', :dir => @options.log_folder, :dir_mode => :normal, :log_output => true,  :ARGV => self.args) do |*args|
         @config = YAML.load(File.open(@options.config))
         load_plugins_from @config["plugins_folder"]
+        load_init_scripts_from @config["init_folder"]
         begin
           BigWig::logger.info("Starting Bigwig job worker")
 
@@ -86,6 +87,12 @@ module BigWig
     def load_plugins_from folder
       BigWig::Plugins.root = folder
       BigWig::Plugins.load_all
+    end
+    
+    def load_init_scripts_from folder
+      return unless folder
+      BigWig::InitScripts.root = folder
+      BigWig::InitScripts.load_all
     end
     
     def trap_signals
