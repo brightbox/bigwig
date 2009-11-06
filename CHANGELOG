@@ -1,3 +1,5 @@
+v0.4. Added the ability to require init scripts at startup
+
 v0.3. added bigwig-push command to place arbitrary messages on the queue
 
 v0.2. added bigwig-ping command to place ping messages on the queue

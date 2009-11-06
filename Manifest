@@ -3,12 +3,13 @@ LICENSE
 Manifest
 README.markdown
 Rakefile
-bigwig.yml
+bigwig.gemspec
 bigwig.yml.example
 bin/bigwig
 bin/bigwig-ping
 bin/bigwig-push
 lib/bigwig.rb
+lib/bigwig/init_scripts.rb
 lib/bigwig/internal_plugins/ping_plugin.rb
 lib/bigwig/job.rb
 lib/bigwig/pinger.rb
